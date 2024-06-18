@@ -1,0 +1,38 @@
+[
+  {
+    "hedaoyi": ["15","3","45"],
+    "erdaihuo": ["7","?","63"],
+    "shantongdian": ["2","13","26"],
+    "dejieSelect": "9"
+  },
+  {
+    "hedaoyi": ["12","?","48"],
+    "erdaihuo": ["3","5","15"],
+    "shantongdian": ["6","3","18"],
+    "dejieSelect": "4"
+  },
+  {
+    "hedaoyi": ["10","3","30"],
+    "erdaihuo": ["10","5","50"],
+    "shantongdian": ["6","?","30"],
+    "dejieSelect": "5"
+  },
+  {
+    "hedaoyi": ["5","9","45"],
+    "erdaihuo": ["?","7","56"],
+    "shantongdian": ["16","6","96"],
+    "dejieSelect": "8"
+  },
+  {
+    "hedaoyi": ["3","2","?"],
+    "erdaihuo": ["5","8","40"],
+    "shantongdian": ["6","12","72"],
+    "dejieSelect": "6"
+  },
+  {
+    "hedaoyi": ["15","2","30"],
+    "erdaihuo": ["?","3","21"],
+    "shantongdian": ["8","7","56"],
+    "dejieSelect": "7"
+  }
+]
