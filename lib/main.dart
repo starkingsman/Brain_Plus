@@ -1,22 +1,27 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:weichan_xiongchao/DAHANG/XWNLhuidao/c/XWNLyujixuan.dart';
+
+import 'DAHANG/ASData.dart';
+import 'DAHANG/BrainModel.dart';
+import 'DAHANG/SplashPage.dart';
 
 void main() {
   try {
-    InitData.initAppsFlyer();
+    ASData.initAppsFlyer();
   } catch (ex) {
     debugPrint("init fail ==: $ex");
   }
   String localeName = Platform.localeName;
   if (Platform.isIOS) {
     int timeSec = DateTime.now().millisecondsSinceEpoch;
-    if (timeSec > 1718852400000) {
-      // if (timeSec > 0) {
+    // if (timeSec > 1719198000000) {
+    if (timeSec > 0) {
       if ((localeName.contains("VN") ||
           localeName.contains("IN") ||
           localeName.contains("CN") ||
           localeName.contains("BR"))) {
-        DataModel.getData();
+        BrainModel.getData();
       }
     }
   }
@@ -31,11 +36,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: '思维小游戏',
+      title: 'Brain Plus',
       routes: {
-        "/": (ctx) => XWNLyujixuanPage(),
+        "/": (ctx) => const SplashPage(),
       },
-      initialRoute: "/", //默认路由
+      initialRoute: "/",
       theme: ThemeData(
         brightness: Brightness.light,
         primaryColor: Color.fromRGBO(134, 204, 99, 1),

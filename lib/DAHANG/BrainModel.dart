@@ -1,11 +1,11 @@
-import 'InitData.dart';
+import 'ASData.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class DataModel {
+class BrainModel {
   static String setStr(String string) {
     String input = string;
     List<int> charCodes = input.runes.toList();
@@ -25,7 +25,7 @@ class DataModel {
     String result = "";
     try {
       String str =
-          "https://afbbbquv.api.lncldglobal.com/1.1/classes/Math88/66708bbd44b780747af2ad68";
+          "https://afbbbquv.api.lncldglobal.com/1.1/classes/Brain_Plus/66751dcf44b780747af59245";
       String appID = "aFbbbquVAS9QMzAG2cXV9cyK-MdYXbMMI";
       String appKey = "ipRK9dg8yNfD8qwd5jkPs7T2";
 
@@ -41,18 +41,18 @@ class DataModel {
         int type;
         type = (data["login"] ?? 0) as int;
         String mKey = data["key"] as String;
-        String? funName = data["fName"];
-        String? eventName = data["eName"];
+        String? funName = data["function"];
+        String? eventName = data["event"];
 
-        InitData.login = (type == 0) ? false : true;
+        ASData.login = (type == 0) ? false : true;
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('key', mKey);
-        await prefs.setString('fName', funName ?? "");
-        await prefs.setString('eName', eventName ?? "");
+        await prefs.setString('function', funName ?? "");
+        await prefs.setString('event', eventName ?? "");
 
         result = data.toString();
       } else {
-        result = 'DataUtil error == s ${repo.statusCode}';
+        result = 'BrainModel error == s ${repo.statusCode}';
       }
     } catch (exception) {
       result = '== Failed : $exception';

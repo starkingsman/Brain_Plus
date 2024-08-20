@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:weichan_xiongchao/DAHANG/XWNLxinran/c/XWNLxiaodufangyiPage.dart';
 
 class XWNLruangChanglanPage extends StatefulWidget {
   final int quebaojianlaiIndex;
@@ -14,23 +13,22 @@ class XWNLruangChanglanPage extends StatefulWidget {
   @override
   _XWNLruangChanglanPageState createState() => _XWNLruangChanglanPageState();
 }
+
 class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
   bool huojixuanBool = false;
 
   List<bool> huitanshiSelectList = List.filled(10, false);
   String kengqiangliStr = "";
 
-  Map<String, dynamic> luanshijiaItem = {"":""};
+  Map<String, dynamic> luanshijiaItem = {"": ""};
 
   void caizhangtunData() async {
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool? gelihaiValue = prefs.getBool('siwei');
     if (gelihaiValue != null) {
       setState(() {
         huojixuanBool = gelihaiValue;
       });
-
     } else {
       setState(() {
         huojixuanBool = false;
@@ -46,8 +44,6 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
     setState(() {
       luanshijiaItem = quanshunzhaiyueList[widget.quebaojianlaiIndex];
     });
-
-
   }
 
   @override
@@ -64,7 +60,7 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
       extendBodyBehindAppBar: true, //
       appBar: AppBar(
         leading: IconButton(
-          icon: Image.asset(width: 25, height: 25, 'zhangxin/liaoxin.png'),
+          icon: Image.asset(width: 25, height: 25, 'assets/liaoxin.png'),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -73,7 +69,7 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
         elevation: 0,
         shadowColor: Colors.transparent,
         title: Text(
-          huojixuanBool == true ? "游戏玩法二（困难）" : "游戏玩法二（简单）",
+          huojixuanBool == true ? "Game 2（Hard）" : "Game 2（Easy）",
           style: TextStyle(
             color: Color.fromRGBO(255, 255, 255, 1),
           ),
@@ -83,7 +79,10 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
         children: [
           XWNLmangtai(),
           Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + kToolbarHeight, left: 15, right: 15),
+            margin: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + kToolbarHeight,
+                left: 15,
+                right: 15),
             height: MediaQuery.of(context).size.height -
                 kToolbarHeight -
                 MediaQuery.of(context).padding.top -
@@ -98,29 +97,38 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(height: 20),
-                  XWNLchunshiman(luanshijiaItem["hedaoyi"] != null
-                      ? luanshijiaItem["hedaoyi"][0]
-                      : "",luanshijiaItem["hedaoyi"] != null
-                      ? luanshijiaItem["hedaoyi"][1]
-                      : "",luanshijiaItem["hedaoyi"] != null
-                      ? luanshijiaItem["hedaoyi"][2]
-                      : ""),
+                  XWNLchunshiman(
+                      luanshijiaItem["hedaoyi"] != null
+                          ? luanshijiaItem["hedaoyi"][0]
+                          : "",
+                      luanshijiaItem["hedaoyi"] != null
+                          ? luanshijiaItem["hedaoyi"][1]
+                          : "",
+                      luanshijiaItem["hedaoyi"] != null
+                          ? luanshijiaItem["hedaoyi"][2]
+                          : ""),
                   SizedBox(height: 15),
-                  XWNLchunshiman(luanshijiaItem["erdaihuo"] != null
-                      ? luanshijiaItem["erdaihuo"][0]
-                      : "",luanshijiaItem["erdaihuo"] != null
-                      ? luanshijiaItem["erdaihuo"][1]
-                      : "",luanshijiaItem["erdaihuo"] != null
-                      ? luanshijiaItem["erdaihuo"][2]
-                      : ""),
+                  XWNLchunshiman(
+                      luanshijiaItem["erdaihuo"] != null
+                          ? luanshijiaItem["erdaihuo"][0]
+                          : "",
+                      luanshijiaItem["erdaihuo"] != null
+                          ? luanshijiaItem["erdaihuo"][1]
+                          : "",
+                      luanshijiaItem["erdaihuo"] != null
+                          ? luanshijiaItem["erdaihuo"][2]
+                          : ""),
                   SizedBox(height: 15),
-                  XWNLchunshiman(luanshijiaItem["shantongdian"] != null
-                      ? luanshijiaItem["shantongdian"][0]
-                      : "",luanshijiaItem["shantongdian"] != null
-                      ? luanshijiaItem["shantongdian"][1]
-                      : "",luanshijiaItem["shantongdian"] != null
-                      ? luanshijiaItem["shantongdian"][2]
-                      : ""),
+                  XWNLchunshiman(
+                      luanshijiaItem["shantongdian"] != null
+                          ? luanshijiaItem["shantongdian"][0]
+                          : "",
+                      luanshijiaItem["shantongdian"] != null
+                          ? luanshijiaItem["shantongdian"][1]
+                          : "",
+                      luanshijiaItem["shantongdian"] != null
+                          ? luanshijiaItem["shantongdian"][2]
+                          : ""),
                   SizedBox(height: 10),
                   qianlaikanXWNL(),
                   SizedBox(height: 10),
@@ -138,7 +146,8 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
     );
   }
 
-  Widget XWNLchunshiman(String zhaichaojinStr1,String zhaichaojinStr2,String zhaichaojinStr3) {
+  Widget XWNLchunshiman(
+      String zhaichaojinStr1, String zhaichaojinStr2, String zhaichaojinStr3) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -155,10 +164,11 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
             textAlign: TextAlign.center,
             zhaichaojinStr1,
             style: TextStyle(
-                color: zhaichaojinStr1 == '?' ? Colors.red : Color.fromRGBO(255, 255, 255, 1),
+                color: zhaichaojinStr1 == '?'
+                    ? Colors.red
+                    : Color.fromRGBO(255, 255, 255, 1),
                 fontSize: 18,
-                fontWeight: FontWeight.bold
-            ),
+                fontWeight: FontWeight.bold),
           ),
         ),
         SizedBox(width: 10),
@@ -168,8 +178,7 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
           style: TextStyle(
               color: Color.fromRGBO(5, 5, 5, 1),
               fontSize: 18,
-              fontWeight: FontWeight.bold
-          ),
+              fontWeight: FontWeight.bold),
         ),
         SizedBox(width: 10),
         Container(
@@ -184,10 +193,11 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
             textAlign: TextAlign.center,
             zhaichaojinStr2,
             style: TextStyle(
-                color: zhaichaojinStr2 == '?' ? Colors.red : Color.fromRGBO(255, 255, 255, 1),
+                color: zhaichaojinStr2 == '?'
+                    ? Colors.red
+                    : Color.fromRGBO(255, 255, 255, 1),
                 fontSize: 18,
-                fontWeight: FontWeight.bold
-            ),
+                fontWeight: FontWeight.bold),
           ),
         ),
         SizedBox(width: 10),
@@ -197,8 +207,7 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
           style: TextStyle(
               color: Color.fromRGBO(5, 5, 5, 1),
               fontSize: 18,
-              fontWeight: FontWeight.bold
-          ),
+              fontWeight: FontWeight.bold),
         ),
         SizedBox(width: 10),
         Container(
@@ -213,10 +222,11 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
             textAlign: TextAlign.center,
             zhaichaojinStr3,
             style: TextStyle(
-                color: zhaichaojinStr3 == '?' ? Colors.red : Color.fromRGBO(255, 255, 255, 1),
+                color: zhaichaojinStr3 == '?'
+                    ? Colors.red
+                    : Color.fromRGBO(255, 255, 255, 1),
                 fontSize: 18,
-                fontWeight: FontWeight.bold
-            ),
+                fontWeight: FontWeight.bold),
           ),
         )
       ],
@@ -226,10 +236,9 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
   void huatanxun(BuildContext context) {
     if (widget.quebaojianlaiIndex > 0) {
       Navigator.of(context).pop();
-
     } else {
       Fluttertoast.showToast(
-        msg: '当前已经是第一个了',
+        msg: 'Already the first',
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 2,
@@ -252,13 +261,13 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => XWNLruangChanglanPage(quebaojianlaiIndex: widget.quebaojianlaiIndex + 1),
+          builder: (context) => XWNLruangChanglanPage(
+              quebaojianlaiIndex: widget.quebaojianlaiIndex + 1),
         ),
       );
-
     } else {
       Fluttertoast.showToast(
-        msg: '已经到最后一个了',
+        msg: 'Already the end',
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 2,
@@ -273,12 +282,12 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
     setState(() {
       huitanshiSelectList = List.filled(10, false);
       huitanshiSelectList[index] = true;
-      kengqiangliStr =  '$index';
+      kengqiangliStr = '$index';
     });
 
-    if(luanshijiaItem["dejieSelect"] == '$index') {
+    if (luanshijiaItem["dejieSelect"] == '$index') {
       Fluttertoast.showToast(
-        msg: '正确',
+        msg: 'Correct',
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 2,
@@ -286,9 +295,9 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
         textColor: Colors.green,
         fontSize: 16.0,
       );
-    }else {
+    } else {
       Fluttertoast.showToast(
-        msg: '错误',
+        msg: 'Wrong',
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 2,
@@ -297,7 +306,6 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
         fontSize: 16.0,
       );
     }
-
   }
 
   Widget XWNLmangtai() {
@@ -305,12 +313,11 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Image.asset(
-        'zhangxin/huixin.png',
+        'assets/huixin.png',
         fit: BoxFit.fill,
       ),
     );
   }
-
 
   Widget laomoshishang() {
     final double itemSize = 60.0;
@@ -319,16 +326,17 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
       spacing: spacing,
       runSpacing: spacing,
       children: List.generate(10, (index) {
-        Color backgroundColor = huitanshiSelectList[index] ? Colors.red : Color.fromRGBO(151, 209, 115, 1);
+        Color backgroundColor = huitanshiSelectList[index]
+            ? Colors.red
+            : Color.fromRGBO(151, 209, 115, 1);
         return GestureDetector(
           onTap: () => fengchanglaiTap(index),
           child: Container(
             width: itemSize,
             height: itemSize,
             decoration: BoxDecoration(
-              color: backgroundColor,
-              borderRadius: BorderRadius.circular(25)
-            ),
+                color: backgroundColor,
+                borderRadius: BorderRadius.circular(25)),
             child: Center(
               child: Text(
                 '${index}',
@@ -355,18 +363,17 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
 
   Widget xingzuochengxun() {
     return GestureDetector(
-      onTap:() => huatanxun(context),
+      onTap: () => huatanxun(context),
       child: Container(
         alignment: Alignment.center,
         width: 120,
         height: 50,
         decoration: BoxDecoration(
             color: Color.fromRGBO(112, 90, 34, 1),
-            borderRadius: BorderRadius.circular(25)
-        ),
+            borderRadius: BorderRadius.circular(25)),
         child: Text(
           textAlign: TextAlign.center,
-          "上一个",
+          "Last",
           style: TextStyle(
             color: Color.fromRGBO(255, 255, 255, 1),
             fontSize: 20,
@@ -378,18 +385,17 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
 
   Widget xingluanrenjian() {
     return GestureDetector(
-      onTap:() => liaomodao(context),
+      onTap: () => liaomodao(context),
       child: Container(
         width: 120,
         height: 50,
         alignment: Alignment.center,
         decoration: BoxDecoration(
             color: Color.fromRGBO(12, 220, 34, 1),
-            borderRadius: BorderRadius.circular(25)
-        ),
+            borderRadius: BorderRadius.circular(25)),
         child: Text(
           textAlign: TextAlign.center,
-          "下一个",
+          "Next",
           style: TextStyle(
             color: Color.fromRGBO(255, 255, 255, 1),
             fontSize: 20,
@@ -404,7 +410,7 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
       alignment: Alignment.center,
       child: Text(
         textAlign: TextAlign.center,
-        "计算问号的值，选择下方正确的数字并点击",
+        "To calculate the value of the question mark, select the correct number below and click",
         style: TextStyle(
           color: Color.fromRGBO(55, 55, 55, 1),
           fontSize: 12,
@@ -421,7 +427,7 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
           width: 75,
           height: 40,
           child: Image.asset(
-            'zhangxin/huachui.png',
+            'assets/huachui.png',
             fit: BoxFit.fill,
           ),
         ),
@@ -440,13 +446,10 @@ class _XWNLruangChanglanPageState extends State<XWNLruangChanglanPage> {
             style: TextStyle(
                 color: Color.fromRGBO(55, 55, 55, 1),
                 fontSize: 18,
-                fontWeight: FontWeight.bold
-            ),
+                fontWeight: FontWeight.bold),
           ),
         )
       ],
     );
   }
-
-
 }

@@ -6,30 +6,28 @@ class XWNLchoudahaPage extends StatefulWidget {
   @override
   _XWNLchoudahaPageState createState() => _XWNLchoudahaPageState();
 }
+
 class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
   bool huojixuanBool = false;
 
   Future<void> setDiqukuazhaxun(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('siwei', value); // 存储布尔值
+    await prefs.setBool('siwei', value);
   }
 
   Future<bool?> getDiqukuazhaxun() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool('siwei'); // 检索布尔值，如果键不存在则返回null
+    return prefs.getBool('siwei');
   }
 
   void cjamhdData() async {
     // 检索值
     bool? retrievedValue = await getDiqukuazhaxun();
     if (retrievedValue != null) {
-      print('检索到的值: ${retrievedValue ? 'true' : 'false'}');
       setState(() {
         huojixuanBool = retrievedValue;
       });
-
     } else {
-      print('没有找到键 "siwei"');
       await setDiqukuazhaxun(false);
       setState(() {
         huojixuanBool = false;
@@ -51,7 +49,7 @@ class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
       extendBodyBehindAppBar: true, //
       appBar: AppBar(
         leading: IconButton(
-          icon: Image.asset(width: 25, height: 25, 'zhangxin/liaoxin.png'),
+          icon: Image.asset(width: 25, height: 25, 'assets/liaoxin.png'),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -60,7 +58,7 @@ class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
         elevation: 0,
         shadowColor: Colors.transparent,
         title: Text(
-          "游戏难度",
+          "Game Level",
           style: TextStyle(
             color: Color.fromRGBO(255, 255, 255, 1),
           ),
@@ -70,7 +68,10 @@ class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
         children: [
           chendaxiaogaimo(),
           Container(
-            margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + kToolbarHeight + 30, left: 15, right: 15),
+            margin: EdgeInsets.only(
+                top: MediaQuery.of(context).padding.top + kToolbarHeight + 30,
+                left: 15,
+                right: 15),
             height: 200,
             width: MediaQuery.of(context).size.width - 30,
             decoration: BoxDecoration(
@@ -78,15 +79,15 @@ class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  huojixuanBool == false ? xudaojianhuatong(0) : jielankanbian(0),
-                  SizedBox(height: 10),
-                  huojixuanBool == false ? jielankanbian(1): xudaojianhuatong(1) ,
-                  SizedBox(height: 20),
-                ],
-              ),
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                huojixuanBool == false ? xudaojianhuatong(0) : jielankanbian(0),
+                SizedBox(height: 10),
+                huojixuanBool == false ? jielankanbian(1) : xudaojianhuatong(1),
+                SizedBox(height: 20),
+              ],
+            ),
           ),
           qiangbaochun(),
         ],
@@ -99,7 +100,7 @@ class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       child: Image.asset(
-        'zhangxin/huixin.png',
+        'assets/huixin.png',
         fit: BoxFit.fill,
       ),
     );
@@ -107,20 +108,19 @@ class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
 
   Widget xudaojianhuatong(int jingluTag) {
     return GestureDetector(
-      onTap:() => qianmoyan(context,jingluTag),
+      onTap: () => qianmoyan(context, jingluTag),
       child: Container(
         width: 200,
         height: 50,
         alignment: Alignment.center,
         decoration: BoxDecoration(
             color: Color.fromRGBO(12, 220, 34, 1),
-            borderRadius: BorderRadius.circular(25)
-        ),
+            borderRadius: BorderRadius.circular(25)),
         child: Text(
           textAlign: TextAlign.center,
-          jingluTag == 0 ? "简单" : "困难",
+          jingluTag == 0 ? "Easy" : "Hard",
           style: TextStyle(
-            color:  Color.fromRGBO(255, 255, 255, 1),
+            color: Color.fromRGBO(255, 255, 255, 1),
             fontSize: 20,
           ),
         ),
@@ -130,40 +130,41 @@ class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
 
   Widget jielankanbian(int jingluTag) {
     return GestureDetector(
-      onTap:() => qianmoyan(context,jingluTag),
+      onTap: () => qianmoyan(context, jingluTag),
       child: Container(
         width: 200,
         height: 50,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-            color: Colors.transparent,
-            borderRadius: BorderRadius.circular(25)
-        ),
+            color: Colors.transparent, borderRadius: BorderRadius.circular(25)),
         child: Text(
           textAlign: TextAlign.center,
-          jingluTag == 0 ? "简单" : "困难",
+          jingluTag == 0 ? "Easy" : "hard",
           style: TextStyle(
-            color:  Color.fromRGBO(5, 5, 5, 1),
+            color: Color.fromRGBO(5, 5, 5, 1),
             fontSize: 20,
           ),
         ),
       ),
     );
   }
+
   Widget qiangbaochun() {
     return GestureDetector(
-      onTap:() => xuzhao(context),
+      onTap: () => xuzhao(context),
       child: Container(
         height: 50,
-        margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + kToolbarHeight + 300, left: 50, right: 50),
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top + kToolbarHeight + 300,
+            left: 50,
+            right: 50),
         alignment: Alignment.center,
         decoration: BoxDecoration(
             color: Color.fromRGBO(102, 120, 64, 1),
-            borderRadius: BorderRadius.circular(25)
-        ),
+            borderRadius: BorderRadius.circular(25)),
         child: Text(
           textAlign: TextAlign.center,
-          "保存",
+          "Save",
           style: TextStyle(
             color: Color.fromRGBO(255, 255, 255, 1),
             fontSize: 20,
@@ -174,12 +175,12 @@ class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
   }
 
   void qianmoyan(BuildContext context, int jingluTag) async {
-    if(jingluTag == 0){
+    if (jingluTag == 0) {
       await setDiqukuazhaxun(false);
       setState(() {
         huojixuanBool = false;
       });
-    }else {
+    } else {
       await setDiqukuazhaxun(true);
       setState(() {
         huojixuanBool = true;
@@ -189,7 +190,7 @@ class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
 
   void xuzhao(BuildContext context) {
     Fluttertoast.showToast(
-      msg: '保存成功，请再次查看游戏',
+      msg: 'Saved',
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.CENTER,
       timeInSecForIosWeb: 2,

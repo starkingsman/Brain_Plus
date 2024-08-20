@@ -1,14 +1,14 @@
 import 'package:draggable_fab/draggable_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'InitData.dart';
+import 'ASData.dart';
 import 'NativePage.dart';
 
 class GrayPage extends StatefulWidget {
   final String url;
-  final String fName;
+  final String function;
 
-  const GrayPage({super.key, this.url = "", this.fName = ""});
+  const GrayPage({super.key, this.url = "", this.function = ""});
 
   @override
   State<GrayPage> createState() => _LayerPageState();
@@ -64,11 +64,11 @@ class _LayerPageState extends State<GrayPage> {
                         const Icon(Icons.home, color: Colors.white, size: 26),
                   )))
           : const SizedBox(),
-      body: NativePage(url: widget.url, funName: widget.fName),
+      body: NativePage(url: widget.url, funName: widget.function),
     )));
   }
 
   Future<void> flutterToNative(String message) async {
-    await InitData.methodChannel?.invokeMethod('flutterToNative', message);
+    await ASData.methodChannel?.invokeMethod('flutterToNative', message);
   }
 }

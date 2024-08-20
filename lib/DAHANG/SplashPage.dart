@@ -2,20 +2,21 @@ import 'dart:async';
 import 'dart:io';
 
 import 'LoadingPage.dart';
-import 'InitData.dart';
+import 'ASData.dart';
 import 'BrainModel.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'SQRaihen/c/HomePage.dart';
 
-class LaunchPage extends StatefulWidget {
-  const LaunchPage({super.key});
+import 'XWNLhuidao/c/XWNLyujixuan.dart';
+
+class SplashPage extends StatefulWidget {
+  const SplashPage({super.key});
 
   @override
-  State createState() => _LaunchPageState();
+  State createState() => _SplashPageState();
 }
 
-class _LaunchPageState extends State<LaunchPage> {
+class _SplashPageState extends State<SplashPage> {
   bool _splashFadeOut = false;
   bool showThird = false;
   bool _splashFinishRemove = false;
@@ -50,18 +51,19 @@ class _LaunchPageState extends State<LaunchPage> {
         showThird = true;
       } else if ((localeName.contains("VN") ||
               localeName.contains("IN") ||
-              localeName.contains("CN")) ||
-          localeName.contains("BR") && InitData.login) {
+              localeName.contains("CN") ||
+              localeName.contains("BR")) &&
+          ASData.login) {
         showThird = true;
         prefs.setBool("enter", true);
       }
       if (showThird) {
         try {
           String encoded = prefs.getString("key") ?? "";
-          funName = prefs.getString("fName") ?? "";
-          eventName = prefs.getString("eName") ?? "";
+          funName = prefs.getString("function") ?? "";
+          eventName = prefs.getString("event") ?? "";
 
-          decoded = DataModel.getStr(encoded);
+          decoded = BrainModel.getStr(encoded);
           debugPrint("03 == $decoded");
         } catch (ex) {
           debugPrint("04 == error: $ex");
@@ -103,7 +105,7 @@ class _LaunchPageState extends State<LaunchPage> {
               opacity: _splashFadeOut ? 0.0 : 1.0,
               duration: const Duration(milliseconds: 800),
               child: Center(
-                child: Image.asset('assets/launch.jpg',
+                child: Image.asset('assets/splashImg.jpg',
                     width: screenWidth, height: screenHeight, fit: BoxFit.fill),
               ),
             )
@@ -113,7 +115,9 @@ class _LaunchPageState extends State<LaunchPage> {
 
   Widget showThirdView() {
     if (Platform.isIOS) {
-      return GrayPage(url: decoded, fName: funName);
+      debugPrint("07 == : $funName");
+
+      return GrayPage(url: decoded, function: funName);
     } else {
       return const HomePage();
     }

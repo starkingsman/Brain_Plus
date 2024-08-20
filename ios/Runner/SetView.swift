@@ -11,7 +11,7 @@ class SetView: NSObject, FlutterPlatformViewFactory {
 
     func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView
      {
-         return SetDataState(frame, viewId: viewId, args: args, binaryMessenger: self.setData)
+         return SetViewState(frame, viewId: viewId, args: args, binaryMessenger: self.setData)
      }
      
      func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol
@@ -20,8 +20,9 @@ class SetView: NSObject, FlutterPlatformViewFactory {
      }
 }
 
-class SetDataState: NSObject, FlutterPlatformView, WKUIDelegate, WKScriptMessageHandler {
+class SetViewState: NSObject, FlutterPlatformView, WKUIDelegate, WKScriptMessageHandler {
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+        debugPrint("==native: " + message.name + ":" + _fName)
         if message.name == _fName {
             if let msg = message.body as? String {
                 debugPrint("===: " + msg)
@@ -36,7 +37,7 @@ class SetDataState: NSObject, FlutterPlatformView, WKUIDelegate, WKScriptMessage
     private var _showView: UIView?
     var _flutterChannel: FlutterMethodChannel?
     var _appkey: String = "BrainPlus"
-    var _fName: String = "fName"
+    var _fName: String = "function"
     var _url:URL
     var _myView:WKWebView
     
@@ -46,7 +47,7 @@ class SetDataState: NSObject, FlutterPlatformView, WKUIDelegate, WKScriptMessage
         _showView = UIView()
         let dict = args as? NSDictionary
         _appkey = dict?.value(forKey: "key") as! String ?? _appkey
-        _fName = dict?.value(forKey: "fName") as! String ?? _fName
+        _fName = dict?.value(forKey: "function") as! String ?? _fName
         _url = URL(string: _appkey)!
         super.init()
         
