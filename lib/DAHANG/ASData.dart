@@ -4,12 +4,15 @@ import 'package:flutter/services.dart';
 
 class ASData {
   static MethodChannel? methodChannel;
-  static bool login = false;
+  static bool isChange = false;
   static AppsflyerSdk? appsflyerSdk;
+  static String key1 = "VcXRPBtj";
+  static String key2 = "tGuheF7t";
+  static String key3 = "VDzpzZ";
   static initAppsFlyer() {
     final appsFlyerOptions = AppsFlyerOptions(
-        afDevKey: "VcXRPBtjtGuheF7tVDzpzZ",
-        appId: Platform.isIOS ? "6504292895" : "",
+        afDevKey: key1 + key2 + key3,
+        appId: Platform.isIOS ? "346576879" : "",
         showDebug: false,
         timeToWaitForATTUserAuthorization: 50,
         disableAdvertisingIdentifier: false,

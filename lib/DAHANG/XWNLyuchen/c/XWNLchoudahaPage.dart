@@ -1,3 +1,4 @@
+import 'package:Brain_Plus/DAHANG/PrivacyPage.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -90,6 +91,7 @@ class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
             ),
           ),
           qiangbaochun(),
+          privacyPolicy(),
         ],
       ),
     );
@@ -167,6 +169,32 @@ class _XWNLchoudahaPageState extends State<XWNLchoudahaPage> {
           "Save",
           style: TextStyle(
             color: Color.fromRGBO(255, 255, 255, 1),
+            fontSize: 20,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget privacyPolicy() {
+    String url =
+        "https://www.privacypolicies.com/live/87122e27-4944-4a1c-a09b-baed764c92f1";
+    return GestureDetector(
+      onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (context) => PrivacyPage(url: url))),
+      child: Container(
+        height: 50,
+        margin: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top + kToolbarHeight + 400,
+            left: 50,
+            right: 50),
+        alignment: Alignment.center,
+        child: Text(
+          textAlign: TextAlign.center,
+          "Privacy Policy",
+          style: TextStyle(
+            decoration: TextDecoration.underline,
+            color: Color.fromRGBO(3, 7, 255, 1),
             fontSize: 20,
           ),
         ),

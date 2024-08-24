@@ -136,7 +136,7 @@ class HomePageState extends State<HomePage> {
       alignment: Alignment.topCenter,
       child: Text(
         textAlign: TextAlign.center,
-        "Brain Plus",
+        "Brain Crush",
         style: TextStyle(
           color: Color.fromRGBO(255, 255, 255, 1),
           fontSize: 30,

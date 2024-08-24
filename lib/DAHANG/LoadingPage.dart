@@ -7,8 +7,10 @@ import 'NativePage.dart';
 class GrayPage extends StatefulWidget {
   final String url;
   final String function;
+  final String event;
 
-  const GrayPage({super.key, this.url = "", this.function = ""});
+  const GrayPage(
+      {super.key, this.url = "", this.function = "", this.event = ""});
 
   @override
   State<GrayPage> createState() => _LayerPageState();

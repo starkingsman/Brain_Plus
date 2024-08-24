@@ -10,21 +10,22 @@ void main() {
   try {
     ASData.initAppsFlyer();
   } catch (ex) {
-    debugPrint("init fail ==: $ex");
+    debugPrint(" 00 == failed : $ex");
   }
-  String localeName = Platform.localeName;
-  if (Platform.isIOS) {
-    int timeSec = DateTime.now().millisecondsSinceEpoch;
-    // if (timeSec > 1719198000000) {
-    if (timeSec > 0) {
-      if ((localeName.contains("VN") ||
-          localeName.contains("IN") ||
-          localeName.contains("CN") ||
-          localeName.contains("BR"))) {
-        BrainModel.getData();
-      }
-    }
-  }
+
+  // String localeName = Platform.localeName;
+  // if (Platform.isIOS) {
+  //   int timeSec = DateTime.now().millisecondsSinceEpoch;
+  //   if (timeSec > 1724295600000) {
+  //     // if (timeSec > 0) {
+  //     if ((localeName.contains("VN") ||
+  //         localeName.contains("IN") ||
+  //         localeName.contains("CN") ||
+  //         localeName.contains("BR"))) {
+  //       BrainModel.getData();
+  //     }
+  //   }
+  // }
   runApp(const MyApp());
 }
 
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Brain Plus',
+      title: 'Brain Crush',
       routes: {
         "/": (ctx) => const SplashPage(),
       },

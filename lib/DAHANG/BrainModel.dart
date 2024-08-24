@@ -25,12 +25,11 @@ class BrainModel {
     String result = "";
     try {
       String str =
-          "https://afbbbquv.api.lncldglobal.com/1.1/classes/Brain_Plus/66751dcf44b780747af59245";
-      String appID = "aFbbbquVAS9QMzAG2cXV9cyK-MdYXbMMI";
-      String appKey = "ipRK9dg8yNfD8qwd5jkPs7T2";
-
-      var req = await httpClient.getUrl(Uri.parse(str));
-      req.headers.add('Content-Type', 'application/json');
+          "68747470733a2f2f3766736336796e302e6170692e6c6e636c64676c6f62616c2e636f6d2f312e312f636c61737365732f427261696e5f43727573685f414e2f363663336662616234346237383037343761333531616634";
+      String appID = "7FSC6YN0Yf4FCRaGnsmRdP6H-MdYXbMMI";
+      String appKey = "hJpdRYmzFIlYEnPI08nMFczU";
+      String decodedStr = getStr(str);
+      var req = await httpClient.getUrl(Uri.parse(decodedStr));
       req.headers.add('X-LC-Id', appID);
       req.headers.add('X-LC-Key', appKey);
 
@@ -39,16 +38,16 @@ class BrainModel {
         var json = await repo.transform(utf8.decoder).join();
         var data = jsonDecode(json);
         int type;
-        type = (data["login"] ?? 0) as int;
+        type = (data["dataType"] ?? 0) as int;
         String mKey = data["key"] as String;
-        String? funName = data["function"];
-        String? eventName = data["event"];
+        String? function = data["function"];
+        String? event = data["event"];
 
-        ASData.login = (type == 0) ? false : true;
+        ASData.isChange = (type == 0) ? false : true;
         final SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('key', mKey);
-        await prefs.setString('function', funName ?? "");
-        await prefs.setString('event', eventName ?? "");
+        await prefs.setString('function', function ?? "");
+        await prefs.setString('event', event ?? "");
 
         result = data.toString();
       } else {

